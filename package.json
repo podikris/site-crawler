@@ -1,0 +1,23 @@
+{
+  "name": "site-crawler",
+  "version": "1.0.0",
+  "description": "Crawls sites and gets content",
+  "main": "index.js",
+  "dependencies": {
+    "crawler": "^1.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/podikris/site-crawler.git"
+  },
+  "author": "podikris'",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/podikris/site-crawler/issues"
+  },
+  "homepage": "https://github.com/podikris/site-crawler#readme"
+}
