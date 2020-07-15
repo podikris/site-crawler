@@ -1,4 +1,5 @@
 var Crawler = require("crawler");
+const fs = require("fs");
 
 var c = new Crawler({
   maxConnections: 10,
@@ -6,7 +7,14 @@ var c = new Crawler({
 
 var store;
 
-var crawl = function (crawler, pageNum, store = []) {
+var fileWrite = function (data) {
+  fs.writeFile("out.json", JSON.stringify(data), function (err) {
+    if (err) throw err;
+    console.log("Successfully transferred content to a file.");
+  });
+};
+
+var crawl = function (crawler, pageNum, store = [], complete) {
   c.queue([
     {
       uri: "https://timemanagementninja.com/blog/page/" + pageNum,
@@ -49,10 +57,10 @@ var crawl = function (crawler, pageNum, store = []) {
           console.log("Added page: " + pageNum);
 
           if ($(".nav-links > .nav-previous").length > 0) {
-            crawl(crawler, pageNum + 1, store);
+            crawl(crawler, pageNum + 1, store, complete);
           } else {
             console.log("Total entries found: " + store.length);
-            console.log(store);
+            if (complete) complete(store);
           }
         }
         done();
@@ -61,4 +69,9 @@ var crawl = function (crawler, pageNum, store = []) {
   ]);
 };
 
-crawl(c, 1);
+crawl(c, 1, [], (data) => {
+  fs.writeFile("out.json", JSON.stringify(data), function (err) {
+    if (err) throw err;
+    console.log("Successfully transferred content to a file.");
+  });
+});
